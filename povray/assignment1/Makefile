@@ -1,0 +1,2 @@
+CC:
+	povray assignment.pov
