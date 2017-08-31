@@ -1,0 +1,12 @@
+#=================
+#pov-ray gitignore
+#=================
+
+#Compiled Object Files
+*.bak
+
+#Database Files
+Thumbs.db
+
+#Image Files (Temporary until final animation is complete)
+*.png
