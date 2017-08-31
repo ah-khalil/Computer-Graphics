@@ -5,16 +5,17 @@
 #include "room.inc"
 #include "lightbulb.inc"
 #include "chair.inc"
+#include "computer.inc"
 
 global_settings{
     assumed_gamma 1.0
 }
 
 camera{
-    location<12, 8, 10>
+    location<0, 7, 10.5>
     up <0, 1, 0>
     right <1, 0, 0>
-    look_at<0, 0, 0>
+    look_at<0, 4.125, 16>
 }
 
 light_source{
@@ -39,6 +40,9 @@ plane{
     }
 }
 
+object{
+    Computer()
+}
 
 object{
     Chair(3.75, DMFWood4)
