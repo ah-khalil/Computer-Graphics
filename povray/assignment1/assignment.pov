@@ -4,16 +4,17 @@
 #include "table.inc"
 #include "room.inc"
 #include "lightbulb.inc"
+#include "chair.inc"
 
 global_settings{
     assumed_gamma 1.0
 }
 
 camera{
-    location<7.5, 7, -7.5>
+    location<12, 8, 10>
     up <0, 1, 0>
     right <1, 0, 0>
-    look_at<-7.5, 5, 7.5>
+    look_at<0, 0, 0>
 }
 
 light_source{
@@ -38,9 +39,15 @@ plane{
     }
 }
 
+
+object{
+    Chair(3.75, DMFWood4)
+    translate<0, 0, 11>
+}
+
 object{
     Table(0, 4, 0, DMFWood1)
-    translate<0, 0, 13.5>
+    translate<0, 0, 13>
 }
 object{
     Room(0, 0, 0, Brown_Agate)
