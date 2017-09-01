@@ -35,9 +35,9 @@
                 }
             }
         }
-        object{Leg_Left_Lower texture{ TEXTURE scale<1, 5, 1> finish{ phong 1 }}}
-        object{Leg_Left_Upper texture{ TEXTURE scale<1, 5, 1> finish{ phong 1 }}}
-        object{Leg_Right_Lower texture{ TEXTURE scale<1, 5, 1> finish{ phong 1 }}}
-        object{Leg_Right_Upper texture{ TEXTURE scale<1, 5, 1> finish{ phong 1 }}}
+        object{Leg_Left_Lower texture{ Polished_Chrome scale<1, 3, 1> finish{ metallic }}}
+        object{Leg_Left_Upper texture{ Polished_Chrome scale<1, 3, 1> finish{ metallic }}}
+        object{Leg_Right_Lower texture{ Polished_Chrome scale<1, 3, 1> finish{ metallic }}}
+        object{Leg_Right_Upper texture{ Polished_Chrome scale<1, 3, 1> finish{ metallic }}}
     }
 #end //end of macro

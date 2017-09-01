@@ -3,7 +3,7 @@
 #declare FACTOR = 2;
 
 //macro for a room
-#macro Room(ROOM_MID_X, ROOM_BASE, ROOM_MID_Z, TEXTURE)
+#macro Room(ROOM_MID_X, ROOM_BASE, ROOM_MID_Z)
     #local TILE =
         texture{
             pigment{
