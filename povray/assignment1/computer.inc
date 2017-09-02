@@ -23,13 +23,16 @@
                 open
             }
             texture{
-                pigment{
-                    image_map{
-                        jpeg "texture_materials/plastic_tex.jpg"
-                        map_type 0
+                normal{
+                    bump_map{
+                        jpeg "texture_materials/plastic_bump.jpg"
+                        bump_size 1
                         interpolate 2
                     }
-                    scale<0.75, 0.75, 0.75>
+                }
+                finish{
+                    diffuse 0.3
+                    specular 0.8
                 }
             }
         }

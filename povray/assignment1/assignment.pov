@@ -15,10 +15,10 @@ global_settings{
 }
 
 camera{
-    location<ROOM_DIST, 10, ROOM_DIST/2>
+    location<0, 5.75, -3.87 + (3.87 * clock)>
     up <0, 1, 0>
     right <1, 0, 0>
-    look_at<0, 0, ROOM_DIST/2>
+    look_at<0, 5.75, ROOM_DIST + 3>
 }
 
 plane{
@@ -51,12 +51,13 @@ object{
 }
 
 object{
-    Chair(3.75, DMFWood4)
-    translate<0, 0, 11>
+    Chair(3.75, DMFWood4, Chrome_Metal)
+    rotate<0, -45, 0>
+    translate<2.5, 0, 8.5>
 }
 
 object{
-    Table(0, 4, 0, DMFWood1)
+    Table(0, 4, 0, DMFWood1, Polished_Chrome)
     translate<0, 0, 13>
 }
 object{
@@ -65,19 +66,44 @@ object{
 //END ROOM 1
 
 //CONNECTION TUBE
-cylinder{
-    <0, 0, 0>, <0, ROOM_DIST, 0>, 1.5
-    open
-    rotate<270, 0, 0>
-    translate<0, 4, ROOM_DIST>
-    pigment{
-        color Pink
+object{
+    cylinder{
+        <0, 0, 0>, <0, ROOM_DIST - 15, 0>, 0.70
+        rotate<270, 0, 0>
+        texture{
+            pigment{
+                image_map{
+                    png "texture_materials/garbage01.png"
+                    map_type 0
+                    interpolate 2
+                }
+            }
+            finish{
+                phong 1
+            }
+            rotate<90, 180, 90>
+            scale<2, 2, 2>
+        }
     }
+    translate<0, 5.75, ROOM_DIST>
 }
+
+light_source{
+    <0, 5.75, 25>
+    color Blue
+    translate<0, 0, 0 + 3.87 * clock>
+}
+
+light_source{
+    <0, 5.75, ROOM_DIST>
+    color <0.5 * clock, 0.5 * clock, 0.5 * clock>
+}
+
+//END OF CONNECTION TUBE
 
 //ELEMENTS OF ROOM 2
 light_source{
-    <0, 9, ROOM_DIST>
+    <0, 9, ROOM_DIST + 15>
     color White
     area_light <1, 0, 0>, <0, 1, 0>, 2, 2
     adaptive 1
@@ -90,21 +116,21 @@ light_source{
 object{
     Computer()
     rotate<0, 180, 0>
-    translate<0, 4.125, ROOM_DIST - 14.1>
+    translate<0, 4.125, (ROOM_DIST + 15) - 14.1>
 }
 
 object{
-    Chair(3.75, DMFWood4)
-    rotate<0, 180, 0>
-    translate<0, 0, ROOM_DIST - 11>
+    Chair(3.75, DMFWood4, Chrome_Metal)
+    rotate<0, 140, 0>
+    translate<2.5, 0, (ROOM_DIST + 15) - 8.5>
 }
 
 object{
-    Table(0, 4, 0, DMFWood1)
+    Table(0, 4, 0, DMFWood1, Polished_Chrome)
     rotate<0, 180, 0>
-    translate<0, 0, ROOM_DIST - 13>
+    translate<0, 0, (ROOM_DIST + 15) - 13>
 }
 object{
-    Room(0, 0, ROOM_DIST)
+    Room(0, 0, ROOM_DIST + 15)
 }
 //END ROOM 2
