@@ -38,7 +38,7 @@
         }
         object{
             Screen
-            translate<-1.35, 0.505, -0.90>
+            translate<-1.35, 0.505, -0.91>
         }
     }
 #end
