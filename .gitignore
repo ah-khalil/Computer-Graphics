@@ -4,9 +4,11 @@
 
 #Compiled Object Files
 *.bak
+*.xcf
 
 #Database Files
 Thumbs.db
 
 #Image Files (Temporary until final animation is complete)
 *.png
+*.gif
