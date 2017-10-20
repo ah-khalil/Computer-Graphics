@@ -10,3 +10,6 @@ Thumbs.db
 
 #Image Files (Temporary until final animation is complete)
 *.png
+
+#Entire Dirs
+opengl/sample/*
