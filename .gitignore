@@ -2,6 +2,9 @@
 #pov-ray gitignore
 #=================
 
+#Library Files
+*.dll
+
 #Compiled Object Files
 *.bak
 *.xcf
