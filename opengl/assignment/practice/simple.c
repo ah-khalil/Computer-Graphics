@@ -1,4 +1,5 @@
-#include <GL/gl.h>
+#include <windows.h>
+#include <stdlib.h>
 #include <GL/glut.h>
 
 #define UNIT 0.25
