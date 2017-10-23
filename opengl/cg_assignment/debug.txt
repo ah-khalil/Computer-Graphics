@@ -1,5 +1,5 @@
-Width of textures/crate.bmp: 256
-Height of textures/crate.bmp: 256
-Size of image: 196608
+Width of assignment\textures\desert_sand.bmp: 512
+Height of assignment\textures\desert_sand.bmp: 512
+Size of image: 786432
 Number of Planes: 1
-Bits in Bitmap: 24
+Bpp from assignment\textures\desert_sand.bmp is not 24: 8

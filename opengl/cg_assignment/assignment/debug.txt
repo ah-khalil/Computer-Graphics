@@ -1,0 +1,5 @@
+Width of assignment//textures//crate.bmp: 256
+Height of assignment//textures//crate.bmp: 256
+Size of image: 196608
+Number of Planes: 1
+Bits in Bitmap: 24
