@@ -6,9 +6,8 @@ void create_box(GLfloat start_x, GLfloat start_y, GLfloat start_z, GLfloat size,
 	GLfloat no_mat[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	GLfloat mat_diffuse[] = { 0.1f, 0.5f, 0.8f, 1.0f };
 	const GLfloat high_shininess = 100.0f;
-	
+
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
@@ -22,7 +21,7 @@ void create_box(GLfloat start_x, GLfloat start_y, GLfloat start_z, GLfloat size,
 	glPushMatrix();
 
 	glTranslatef((size / 2.0) + 0.5, 0.0f, 0.0f);
-	
+
 	//texture and normal coordinates done in QUADS
 	glBegin(GL_QUADS);
 		//Front
@@ -35,7 +34,7 @@ void create_box(GLfloat start_x, GLfloat start_y, GLfloat start_z, GLfloat size,
 
 		//Right
 		glNormal3f(1.0f, 0.0f, 0.0f);
-		
+
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(size, start_y, start_z);
 		glTexCoord2f(1.0f, 0.0f); glVertex3f(size, start_y, -size);
 		glTexCoord2f(1.0f, 1.0f); glVertex3f(size, size, -size);
@@ -60,6 +59,5 @@ void create_box(GLfloat start_x, GLfloat start_y, GLfloat start_z, GLfloat size,
 	glPopMatrix();
 
 	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
 	glDisable(GL_COLOR_MATERIAL);
 }

@@ -19,6 +19,7 @@ void draw_controls(char* text, float x, float y);
 GLuint load_GLtextures(char* filename);
 void handle_resize(int width, int height);
 void handle_keypress(unsigned char key, int x, int y);
+void reset();
 
 //vars for textures
 GLuint terrain_texture;
@@ -34,6 +35,7 @@ GLfloat zoom;
 GLfloat rotate_x;
 GLfloat rotate_y;
 GLfloat anim_toggle;
+int zoom_lod;
 
 //global transformation
 GLfloat x_angle;
@@ -57,7 +59,7 @@ const char *controls[CONTROL_TEXT_LENGTH] = {
 };
 
 //vars for fog
-GLfloat fog_color[] = {0.5f, 0.5f, 0.5f, 1};
+GLfloat fog_color[] = {0.9f, 0.6f, 0.3f, 1};
 
 //vars for animation
 GLfloat flag_incr = 0.001f;

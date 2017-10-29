@@ -29,10 +29,10 @@ void init() {
 
 	GLfloat light_pos[] = { 15.0f, 15.0f, 15.0f, 1.0 };		//first light
 	GLfloat ambience[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	GLfloat diffuse[] = { 1.0f, 1.0f, 1.0f, 2.0f };
+	GLfloat diffuse[] = { 0.3f, 0.4f, 0.3f, 2.0f };
 	GLfloat specular[] = { 7.0f, 1.0f, 2.0f, 5.0f };
 
-	GLfloat light_pos_two[] = { -6.0f, 20.0f, -3.0f, 1.0 };	//second light
+	GLfloat light_pos_two[] = { -100.0f, 100.0f, -3.0f, 1.0 };	//second light
 	GLfloat ambience_two[] = { 0.0f, 0.0f, 0.2f, 1.0f };
 	GLfloat diffuse_two[] = { 0.3f, 1.0f, 1.0f, 1.0f };
 	GLfloat specular_two[] = { 0.5f, 1.0f, 0.5f, 1.0f };
@@ -42,6 +42,7 @@ void init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_SHADE_MODEL);
+	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
@@ -61,18 +62,32 @@ void init() {
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specular_two);
 
 	//texture bitmaps
-	terrain_texture = load_GLtextures("assignment/textures/dirt_big.bmp");
-	fence_texture = load_GLtextures("assignment/textures/wood_fence.bmp");
-	plank_texture = load_GLtextures("assignment/textures/birch.bmp");
-	sheet_texture = load_GLtextures("assignment/textures/metal.bmp");
-	box_texture = load_GLtextures("assignment/textures/crate.bmp");
-	ausflag_texture = load_GLtextures("assignment/textures/australia_flag.bmp");
-	tower_texture = load_GLtextures("assignment/textures/watertower_legs.bmp");
+	terrain_texture = load_GLtextures("textures/dirt_big.bmp");
+	fence_texture = load_GLtextures("textures/wood_fence.BMP");
+	plank_texture = load_GLtextures("textures/birch.bmp");
+	sheet_texture = load_GLtextures("textures/metal.bmp");
+	box_texture = load_GLtextures("textures/crate.bmp");
+	ausflag_texture = load_GLtextures("textures/australia_flag.bmp");
+	tower_texture = load_GLtextures("textures/watertower_legs.bmp");
 
 	x_angle = 0.0f;
 	y_angle = 0.0f;
+	rotate_x = 0.0f;
+	rotate_y = 0.0f;
 	zoom = 0.00f;
 	anim_toggle = 0;
+	zoom_lod = 0;
+}
+
+void reset(){
+	x_angle = 0.0f;
+	y_angle = 0.0f;
+	rotate_x = 0.0f;
+	rotate_y = 0.0f;
+	zoom = 0.00f;
+	anim_toggle = 0;
+	flag_incr = 0.001f;
+	zoom_lod = 0;
 }
 
 //function: update
@@ -95,6 +110,10 @@ void handle_keypress(unsigned char key, int x, int y) {
 		case 'a':
 			if (anim_toggle < 0.001f)
 				anim_toggle = 1.0;
+			break;
+		case 'R':
+		case 'r':
+			reset();
 			break;
 		case 'F':
 		case 'f':
@@ -130,9 +149,11 @@ void handle_keypress(unsigned char key, int x, int y) {
 			break;
 		case 'Z':
 			zoom = zoom + 0.1f;
+			zoom_lod = zoom_lod + 1;
 			break;
 		case 'z':
 			zoom = zoom - 0.1f;
+			zoom_lod = zoom_lod - 1;
 			break;
 	}
 }
@@ -147,8 +168,8 @@ void draw_controls(char* text, float x, float y) {
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glRasterPos2f(x, y);
-	
-	for (int j = 0; j < strlen(text); j++) {
+	int j;
+	for (j = 0; j < strlen(text); j++) {
 		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[j]);
 	}
 
@@ -196,7 +217,7 @@ void draw() {
 
 	glFogfv(GL_FOG_COLOR, fog_color);
 	glFogi(GL_FOG_MODE, GL_EXP);
-	glFogf(GL_FOG_DENSITY, 0.04f);
+	glFogf(GL_FOG_DENSITY, 0.03f);
 
 	//sets the camera "position" so that the objects are clearly visible on screen
 	gluLookAt(
@@ -220,11 +241,12 @@ void draw() {
 	create_box(0.0f, 0.0f, 0.0f, 2.0f, box_texture);
 	create_fence(0.0f, 0.0f, 2.0f, 2.0f, fence_texture, plank_texture, sheet_texture);
 	create_teapot(2.0f, 2.35f, -0.5f, 0.5f);
-	create_flag(-5.0f, -1.0f, 0.0f, 0.1f, 10.0f, flag_incr, ausflag_texture);
-	create_watertower(-5.0f, -1.0f, -5.0f, 0.3f, 6.0f, tower_texture);
+	create_flag(-5.0f, -1.0f, 0.0f, 0.1f, 10.0f, flag_incr, ausflag_texture, zoom_lod);
+	create_watertower(-5.0f, -1.0f, -5.0f, 0.3f, 6.0f, tower_texture, zoom_lod);
 
 	glPushMatrix();
-	for (int i = 0; i < CONTROL_TEXT_LENGTH; i++) {
+	int i;
+	for (i = 0; i < CONTROL_TEXT_LENGTH; i++) {
 		draw_controls(controls[i], 1.0f, 1.0f - (i * 0.1f));
 	}
 	glPopMatrix();

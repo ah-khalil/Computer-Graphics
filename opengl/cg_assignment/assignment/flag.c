@@ -2,7 +2,7 @@
 
 //function:	create_flag
 //use:		creates the flag that will also be animated
-void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GLfloat height, GLfloat incr, GLuint texture_id) {
+void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GLfloat height, GLfloat incr, GLuint texture_id, int lod) {
 	GLfloat mat_ambient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
 	GLfloat mat_diffuse[] = { 0.1f, 0.5f, 0.8f, 1.0f };
 	GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -15,7 +15,6 @@ void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GL
 
 	glPushMatrix();
 
-	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -25,7 +24,7 @@ void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GL
 	glTranslatef(pos_x, pos_y, pos_z);
 	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 	glBegin(GL_POLYGON);
-		gluCylinder(quad, radius, radius, height, 10, 10);
+		gluCylinder(quad, radius, radius, height, 10 + lod, 10 + lod);
 	glEnd();
 	glPopMatrix();
 
@@ -33,16 +32,12 @@ void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GL
 	glPushMatrix();
 	glTranslatef(pos_x, height + pos_y, pos_z);
 	glBegin(GL_POLYGON);
-		glutSolidSphere(radius * 2, 10, 10);
+		glutSolidSphere(radius * 2, 10 + lod, 10 + lod);
 	glEnd();
 	glPopMatrix();
 
-	glDisable(GL_COLOR_MATERIAL);
-	glDisable(GL_LIGHTING);
-
-	glEnable(GL_LIGHTING);
-	glEnable(GL_COLOR_MATERIAL);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glColor4f(0.5f, 0.5f, 0.5f, 0.0f);
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -64,7 +59,6 @@ void create_flag(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GL
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_COLOR_MATERIAL);
-	glDisable(GL_LIGHTING);
 	glPopMatrix();
 	gluDeleteQuadric(quad);
 

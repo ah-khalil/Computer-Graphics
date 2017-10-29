@@ -2,7 +2,7 @@
 
 //function:	create_watertower
 //use:		creates the watertower, drawn into the scene
-void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GLfloat height, GLuint texture_id) {
+void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radius, GLfloat height, GLuint texture_id, int lod) {
 	GLfloat mat_diffuse[] = { 0.1f, 0.5f, 0.8f, 1.0f };
 	GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	const GLfloat high_shininess = 100.0f;
@@ -12,12 +12,11 @@ void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radi
 	glPushMatrix();
 
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, high_shininess);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, high_shininess);
 
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -28,18 +27,22 @@ void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radi
 	glTranslatef(pos_x, pos_y, pos_z);
 	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 	glBegin(GL_POLYGON);
-		gluCylinder(quad, radius, radius, height, 10, 10);
+		gluCylinder(quad, radius, radius, height, 10 + lod, 10 + lod);
 	glEnd();
 	glPopMatrix();
 	gluQuadricTexture(quad, GL_FALSE);
+	glDisable(GL_COLOR_MATERIAL);
+
+	glEnable(GL_COLOR_MATERIAL);
 
 	//the base of the water tank
 	glPushMatrix();
 	glTranslatef(pos_x, height + pos_y, pos_z);
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	
+
 	glBegin(GL_POLYGON);
-		for (double i = 0; i < 2 * PI; i += PI / 12) {
+		double i;
+		for (i = 0; i < 2 * PI; i += PI / (12 + lod)) {
 				glVertex3f(cos(i) * (radius * radius_mul), (sin(i) * radius * radius_mul), 0.0);
 		}
 	glEnd();
@@ -52,7 +55,7 @@ void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radi
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 
 	glBegin(GL_POLYGON);
-		gluCylinder(quad, radius * radius_mul, radius * radius_mul, 2.0f, 10, 10);
+		gluCylinder(quad, radius * radius_mul, radius * radius_mul, 2.0f, 10 + lod, 10 + lod);
 	glEnd();
 	glPopMatrix();
 
@@ -62,11 +65,10 @@ void create_watertower(GLfloat pos_x, GLfloat pos_y, GLfloat pos_z, GLfloat radi
 	glTranslatef(pos_x, height + 1.55f + pos_y, pos_z);
 	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 
-	glutSolidCone(radius * radius_mul + 0.5f, 2.0f, 12, 12);
+	glutSolidCone(radius * radius_mul + 0.5f, 2.0f, 12 + lod, 12 + lod);
 
 	gluDeleteQuadric(quad);
 	glPopMatrix();
 
-	glDisable(GL_LIGHTING);
 	glDisable(GL_COLOR_MATERIAL);
 }
